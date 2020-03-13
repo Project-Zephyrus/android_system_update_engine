@@ -192,6 +192,13 @@ cc_defaults {
         "libselinux",
         "libprocessgroup",
     ],
+    product_variables: {
+        debuggable: {
+            cflags: [
+                "-DRUN_BACKUPTOOL",
+            ],
+        },
+    },
 }
 
 cc_library_static {
