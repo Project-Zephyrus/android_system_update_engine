@@ -281,7 +281,7 @@ void PostinstallRunnerAction::PerformPartitionPostinstall() {
   // it's running.
   vector<string> command = {abs_path};
 #ifdef __ANDROID__
-#ifdef RUN_BACKUPTOOL
+#if !defined(__ANDROID_RECOVERY__) && defined(RUN_BACKUPTOOL)
   // Check the currently installed /system partition to see if it's ever
   // been mounted R/W. If it has, we'll run backuptool scripts for it
   // since we can safely assume something on the partition has been
@@ -348,7 +348,7 @@ void PostinstallRunnerAction::PerformPartitionPostinstall() {
   }
 
   utils::UnmountFilesystem(fs_mount_dir_);
-#endif  // RUN_BACKUPTOOL
+#endif  // !__ANDROID_RECOVERY__ && RUN_BACKUPTOOL
 
   // In Brillo and Android, we pass the slot number and status fd.
   command.push_back(std::to_string(install_plan_.target_slot));
